@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build: ./backend/auth_service
+    env_file:
+      - ./backend/auth_service/.env
+    ports:
+      - "8010:8010"
+    depends_on:
+      - user-db
+    networks:
+      - gestor_red
+
+  users-service:
+    build: ./backend/users_service
+    env_file:
+      - ./backend/users_service/.env
+    ports:
+      - "8011:8011"
+    depends_on:
+      - user-db
+    networks:
+      - gestor_red
+
+  user-db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres_data_user:/var/lib/postgresql/data
+    networks:
+      - gestor_red
+
+networks:
+  gestor_red:
+    driver: bridge
+
+volumes:
+  postgres_data_user:

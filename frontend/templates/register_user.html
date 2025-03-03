@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Usuario{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="text-center">Agregar Usuario</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rol</label>
+                        <select class="form-control" name="role">
+                            <option value="user">Usuario</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Registrar Usuario</button>
+                </form>
+                {% if error %}
+                <p class="text-danger text-center mt-3">{{ error }}</p>
+                {% endif %}
+                <p class="text-center mt-3">
+                    <a href="{{ url_for('users') }}">Volver a la lista de usuarios</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
